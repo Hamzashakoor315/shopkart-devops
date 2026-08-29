@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: shopkart-frontend}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: shopkart-frontend}}
+  template:
+    metadata: {labels: {app: shopkart-frontend}}
+    spec:
+      containers:
+      - name: frontend
+        image: talha884/shopkart-frontend:1.0
+        ports: [{containerPort: 80}]
+        resources:
+          requests: {cpu: 50m, memory: 64Mi}
+          limits: {cpu: 200m, memory: 128Mi}

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shopkart-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels: {app: shopkart-backend}
+  template:
+    metadata: {labels: {app: shopkart-backend}}
+    spec:
+      containers:
+      - name: backend
+        image: talha884/shopkart-backend:1.0
+        ports: [{containerPort: 5000}]
+        envFrom:
+        - configMapRef: {name: shopkart-backend-config}
+        - secretRef: {name: shopkart-backend-secret}
+        readinessProbe: {httpGet: {path: /health, port: 5000}, initialDelaySeconds: 3, periodSeconds: 5}
+        livenessProbe: {httpGet: {path: /health, port: 5000}, initialDelaySeconds: 10, periodSeconds: 10}
+        resources:
+          requests: {cpu: 100m, memory: 128Mi}
+          limits: {cpu: 300m, memory: 256Mi}
