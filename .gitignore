@@ -3,3 +3,12 @@ dist/
 .env
 .env.*
 !.env.example
+
+# AI assistant configs/metadata
+.claude/
+CLAUDE.md
+.cursor/
+.cursorrules
+.aider*
+.github/copilot-instructions.md
+.windsurfrules
