@@ -72,6 +72,8 @@ pipeline {
                     sh """
                         ssh -o StrictHostKeyChecking=no ubuntu@172.31.11.167 '
                             set -e
+                            cd ~/shopkart-devops
+                            kubectl apply -f k8s/
                             kubectl set image deployment/shopkart-backend backend=${BACKEND_IMAGE}:${BUILD_NUMBER}
                             kubectl set image deployment/shopkart-frontend frontend=${FRONTEND_IMAGE}:${BUILD_NUMBER}
                             kubectl rollout status deployment/shopkart-backend
