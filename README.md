@@ -31,3 +31,4 @@ kubectl port-forward service/shopkart-frontend 8080:80
 Then open http://localhost:8080.
 
 The backend is NodePort here intentionally so students can test the REST API directly. In a more production-like design it would usually be ClusterIP and remain internal, but Ingress is deliberately excluded because it has not been taught yet.
+CI/CD pipeline automated deployment enabled.
