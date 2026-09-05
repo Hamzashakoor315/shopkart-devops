@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: talha884/shopkart-frontend:1.0
+        image: hamzashakoor315/shopkart-frontend:1.0
         ports: [{containerPort: 80}]
         resources:
           requests: {cpu: 50m, memory: 64Mi}

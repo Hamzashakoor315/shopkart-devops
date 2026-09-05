@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: talha884/shopkart-backend:1.0
+        image: hamzashakoor315/shopkart-backend:1.0
         ports: [{containerPort: 5000}]
         envFrom:
         - configMapRef: {name: shopkart-backend-config}
