@@ -54,6 +54,18 @@ pipeline {
             }
         }
 
+        // TEMPORARY: verifies SSH connectivity and kubectl access to the k3s app server.
+        // Remove once the real Kubernetes deployment stage below is wired up.
+        stage('Test K3s SSH Connection') {
+            steps {
+                sshagent(credentials: ['app-server-ssh']) {
+                    sh '''
+                        ssh -o StrictHostKeyChecking=no ubuntu@172.31.11.167 "hostname && kubectl get nodes"
+                    '''
+                }
+            }
+        }
+
         stage('Deploy to Kubernetes') {
             steps {
                 echo 'PLACEHOLDER: Kubernetes deployment will be configured separately after this Docker build/push pipeline is verified.'
