@@ -68,8 +68,19 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                echo 'PLACEHOLDER: Kubernetes deployment will be configured separately after this Docker build/push pipeline is verified.'
-                // TODO: kubectl apply -f k8s/ (with image tag updated to ${BUILD_NUMBER})
+                sshagent(credentials: ['app-server-ssh']) {
+                    sh """
+                        ssh -o StrictHostKeyChecking=no ubuntu@172.31.11.167 '
+                            set -e
+                            kubectl set image deployment/shopkart-backend backend=${BACKEND_IMAGE}:${BUILD_NUMBER}
+                            kubectl set image deployment/shopkart-frontend frontend=${FRONTEND_IMAGE}:${BUILD_NUMBER}
+                            kubectl rollout status deployment/shopkart-backend
+                            kubectl rollout status deployment/shopkart-frontend
+                            kubectl get pods
+                            kubectl get deployments
+                        '
+                    """
+                }
             }
         }
     }
